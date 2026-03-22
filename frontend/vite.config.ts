@@ -11,6 +11,13 @@ export default defineConfig({
         target: 'http://localhost:8080',
         changeOrigin: true,
       },
+      '/ws': {
+        target: 'ws://localhost:8080',
+        ws: true,
+      },
     },
+  },
+  define: {
+    __API_URL__: JSON.stringify(process.env.VITE_API_URL || ''),
   },
 })
