@@ -4,7 +4,17 @@
   "installCommand": "cd frontend && npm install",
   "framework": "vite",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "$VITE_API_URL/api/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/api/:path*",
+      "destination": "https://nexus-production-ba11.up.railway.app/api/:path*"
+    },
+    {
+      "source": "/ws",
+      "destination": "https://nexus-production-ba11.up.railway.app/ws"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
