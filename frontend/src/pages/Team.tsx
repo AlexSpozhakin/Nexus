@@ -935,18 +935,18 @@ export default function Team() {
                     return (
                     <div
                       key={task.id}
-                      className={`p-4 rounded-xl cursor-pointer card-hover stagger-item ${cardClass}`}
+                      className={`p-3 sm:p-4 rounded-xl cursor-pointer card-hover stagger-item ${cardClass}`}
                       onClick={() => navigate(`/task/${task.id}`)}
                     >
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-start gap-3 min-w-0 flex-1">
-                          <span className={`inline-flex items-center justify-center gap-1 w-16 py-0.5 rounded-full text-xs font-medium mt-0.5 flex-shrink-0 ${getPriorityBadge(task.priority)}`}>
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-start gap-2 min-w-0 flex-1">
+                          <span className={`inline-flex items-center justify-center gap-1 w-14 sm:w-16 py-0.5 rounded-full text-xs font-medium mt-0.5 flex-shrink-0 ${getPriorityBadge(task.priority)}`}>
                             <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${getPriorityDot(task.priority)}`} />
-                            {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
+                            <span className="truncate">{task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}</span>
                           </span>
                           <div className="min-w-0 flex-1">
-                            <h3 className="text-white font-medium truncate">{task.title}</h3>
-                            {task.description && <p className="text-gray-400 text-sm mt-1 line-clamp-2">{task.description}</p>}
+                            <h3 className="text-white font-medium truncate text-sm sm:text-base">{task.title}</h3>
+                            {task.description && <p className="text-gray-400 text-xs sm:text-sm mt-0.5 hidden sm:block line-clamp-2">{task.description}</p>}
 
                             <div className="flex flex-wrap gap-2 mt-2">
                               {task.status === 'done' ? (() => {
@@ -989,15 +989,12 @@ export default function Team() {
                               </div>
                             )}
 
-                            <div className="flex items-center gap-4 mt-2">
-                              <div className="flex items-center gap-2">
-                                <span className="text-gray-500 text-xs">{t('assignees')}:</span>
-                                <AssigneeAvatars assignees={task.assignees || []} maxDisplay={3} teamSize={members.length} />
-                              </div>
+                            <div className="flex items-center gap-2 mt-1.5">
+                              <AssigneeAvatars assignees={task.assignees || []} maxDisplay={2} teamSize={members.length} />
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
+                        <div className="flex items-center gap-1.5 flex-shrink-0">
                           <StatusBadge
                             status={hasSubtasks && task.subtasks
                               ? task.subtasks.some((st: any) => st.status === 'in_progress' || st.status === 'done')
@@ -1014,10 +1011,12 @@ export default function Team() {
                                 e.stopPropagation();
                                 handleDeleteTask(task.id);
                               }}
-                              className="px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white rounded-lg text-xs transition-all btn-modern hover-lift shadow-md hover:shadow-lg font-medium"
-                              title="Delete task (Admin/Owner only)"
+                              className="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all flex-shrink-0"
+                              title="Delete task"
                             >
-                              {t('deleteTask')}
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                              </svg>
                             </button>
                           )}
                         </div>
