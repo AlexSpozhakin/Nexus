@@ -238,12 +238,12 @@ export default function AttachmentSection({ taskId, teamId, currentUserId }: Pro
               </div>
 
               {/* Кнопки действий */}
-              <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-all flex-shrink-0">
+              <div className="flex gap-1.5 sm:opacity-0 sm:group-hover:opacity-100 transition-all flex-shrink-0">
                 {/* Скачать (только для форматов с браузерным превью — у остальных клик уже скачивает) */}
                 {canPreviewInBrowser(a.mime_type) && (
                   <button
                     onClick={(e) => handleDownload(a, e)}
-                    className="p-1.5 bg-indigo-500/20 hover:bg-indigo-500/35 text-indigo-400 rounded-lg transition-all hover-lift btn-modern"
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 bg-indigo-500/20 hover:bg-indigo-500/35 text-indigo-400 rounded-lg transition-all hover-lift btn-modern"
                     title={t('downloadFile')}
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -252,12 +252,12 @@ export default function AttachmentSection({ taskId, teamId, currentUserId }: Pro
                   </button>
                 )}
 
-                {/* Удалить — только свои файлы, стиль как в My Teams */}
+                {/* Удалить — только свои файлы */}
                 {a.uploaded_by === currentUserId && (
                   <button
                     onClick={(e) => remove(a.id, e)}
                     disabled={deletingId === a.id}
-                    className="p-1.5 bg-red-600 hover:bg-red-700 rounded-lg transition disabled:opacity-50 hover-lift btn-modern"
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 bg-red-600 hover:bg-red-700 rounded-lg transition disabled:opacity-50 hover-lift btn-modern"
                     title={t('deleteAttachment')}
                   >
                     {deletingId === a.id

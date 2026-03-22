@@ -58,6 +58,9 @@ export default function Team() {
   const [draggingTaskId, setDraggingTaskId] = useState<string | null>(null);
   const [dragOverCol, setDragOverCol] = useState<string | null>(null);
 
+  // Header team menu (3-dot dropdown)
+  const [showTeamMenu, setShowTeamMenu] = useState(false);
+
   // Note form
   const [showNoteForm, setShowNoteForm] = useState(false);
   const [noteTitle, setNoteTitle] = useState('');
@@ -453,21 +456,61 @@ export default function Team() {
         breadcrumbs={[{ label: currentTeam?.name || '…', path: undefined }]}
         actions={
           currentTeam?.owner_id === user?.id ? (
-            <button
-              onClick={handleDeleteTeam}
-              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white px-3 sm:px-4 py-2 rounded-lg transition-all btn-modern hover-lift font-medium text-sm"
-            >
-              <span className="hidden sm:inline">{t('deleteTeam')}</span>
-              <span className="sm:hidden">🗑</span>
-            </button>
+            <div className="relative">
+              <button
+                onClick={() => setShowTeamMenu(prev => !prev)}
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700/60 hover:bg-gray-600/70 text-gray-300 hover:text-white transition-all border border-gray-600/50"
+                title="Team options"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" />
+                </svg>
+              </button>
+              {showTeamMenu && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setShowTeamMenu(false)} />
+                  <div className="absolute right-0 mt-2 w-44 bg-gray-800 border border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden animate-fade-in">
+                    <button
+                      onClick={() => { setShowTeamMenu(false); handleDeleteTeam(); }}
+                      className="w-full flex items-center gap-2 px-4 py-3 text-red-400 hover:bg-red-500/10 transition-colors text-sm font-medium"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                      {t('deleteTeam')}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           ) : (
-            <button
-              onClick={handleLeaveTeam}
-              className="bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-500 hover:to-orange-600 text-white px-3 sm:px-4 py-2 rounded-lg transition-all btn-modern hover-lift font-medium text-sm"
-            >
-              <span className="hidden sm:inline">{t('leaveTeam')}</span>
-              <span className="sm:hidden">↩</span>
-            </button>
+            <div className="relative">
+              <button
+                onClick={() => setShowTeamMenu(prev => !prev)}
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700/60 hover:bg-gray-600/70 text-gray-300 hover:text-white transition-all border border-gray-600/50"
+                title="Team options"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" />
+                </svg>
+              </button>
+              {showTeamMenu && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setShowTeamMenu(false)} />
+                  <div className="absolute right-0 mt-2 w-44 bg-gray-800 border border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden animate-fade-in">
+                    <button
+                      onClick={() => { setShowTeamMenu(false); handleLeaveTeam(); }}
+                      className="w-full flex items-center gap-2 px-4 py-3 text-orange-400 hover:bg-orange-500/10 transition-colors text-sm font-medium"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
+                      {t('leaveTeam')}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           )
         }
       />
@@ -713,7 +756,8 @@ export default function Team() {
               filteredTasks.length === 0 ? (
                 <p className="text-gray-400 text-center py-8">{t('noTasks')}</p>
               ) : (
-                <div className="grid grid-cols-3 gap-4">
+                <div className="overflow-x-auto -mx-2 px-2 pb-2 sm:overflow-visible sm:mx-0 sm:px-0 sm:pb-0">
+              <div className="grid grid-cols-3 gap-4 min-w-[600px] sm:min-w-0">
                   {(['todo', 'in_progress', 'done'] as const).map((colStatus) => {
                     const colTasks = filteredTasks.filter(t => t.status === colStatus);
                     const colLabel = colStatus === 'todo' ? t('kanbanTodo') : colStatus === 'in_progress' ? t('kanbanInProgress') : t('kanbanDone');
@@ -842,6 +886,7 @@ export default function Team() {
                     );
                   })}
                 </div>
+              </div>
               )
             ) : (
               /* ── LIST ── */
@@ -1209,10 +1254,10 @@ export default function Team() {
                 members.map((member) => (
                   <div
                     key={member.id}
-                    className="task-bg-gray border p-4 rounded-xl flex justify-between items-center card-hover stagger-item"
+                    className="task-bg-gray border p-4 rounded-xl flex flex-wrap justify-between items-center gap-3 card-hover stagger-item"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="relative">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="relative flex-shrink-0">
                         <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
                           {member.username?.slice(0, 2).toUpperCase() || '??'}
                         </div>
@@ -1220,15 +1265,15 @@ export default function Team() {
                           <OnlineIndicator isOnline={onlineUserIds.includes(member.user_id)} size="sm" />
                         </div>
                       </div>
-                      <div>
-                        <p className="text-white font-semibold">
+                      <div className="min-w-0">
+                        <p className="text-white font-semibold truncate">
                           {member.username}
                           {member.user_id === user?.id && <span className="text-gray-400 text-xs ml-2">({t('you')})</span>}
                         </p>
-                        <p className="text-gray-400 text-sm">{member.email}</p>
+                        <p className="text-gray-400 text-sm truncate">{member.email}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 flex-shrink-0 flex-wrap">
                       {/* Бейдж роли */}
                       <RoleBadge
                         role={member.role as 'owner' | 'admin' | 'member'}
@@ -1239,7 +1284,7 @@ export default function Team() {
                       {canRemoveMember(member.role, member.user_id) && (
                         <button
                           onClick={() => handleRemoveMember(member.user_id)}
-                          className="px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white rounded-lg text-xs transition-all btn-modern hover-lift shadow-md hover:shadow-lg font-medium"
+                          className="px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white rounded-lg text-xs transition-all btn-modern hover-lift shadow-md hover:shadow-lg font-medium whitespace-nowrap"
                         >
                           {member.user_id === user?.id ? t('leaveTeamBtn') : t('removeMember')}
                         </button>
