@@ -1,0 +1,1518 @@
+@import "tailwindcss";
+
+/* Prevent layout shift from scrollbar appearing/disappearing */
+html {
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+/* ============================================
+   CUSTOM SCROLLBAR STYLES
+   ============================================ */
+
+/* For Webkit browsers (Chrome, Safari, Edge) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(75, 85, 99, 0.5) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(75, 85, 99, 0.5);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.7);
+}
+
+/* Modern scrollbar for dark areas */
+.dark-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+}
+
+.dark-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.6);
+}
+
+/* ============================================
+   SMOOTH ANIMATIONS & TRANSITIONS
+   ============================================ */
+
+/* Smooth page transitions */
+body {
+  @apply bg-gray-900 text-white;
+  overflow-x: hidden;
+}
+
+
+/* Fade in animation for page loads */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(99, 102, 241, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.8);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.4s ease-out;
+}
+
+@keyframes editIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-edit-in {
+  animation: editIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Search result item stagger animation */
+@keyframes searchItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.search-item {
+  animation: searchItemIn 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Search match highlight */
+.search-highlight {
+  background: rgba(99, 102, 241, 0.25);
+  color: #c7d2fe;
+  border-radius: 3px;
+  padding: 0 2px;
+  font-style: normal;
+  font-weight: 600;
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2);
+}
+
+/* Search progress bar shimmer */
+@keyframes search-progress {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+.search-progress-bar {
+  animation: search-progress 1.4s ease-in-out infinite;
+}
+
+.animate-slide-in-left {
+  animation: slideInFromLeft 0.5s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInFromRight 0.5s ease-out;
+}
+
+/* ============================================
+   PAGE TRANSITIONS
+   ============================================ */
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: pageEnter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.analytics-period-enter {
+  animation: pageEnter 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ============================================
+   STAGGER ANIMATIONS
+   ============================================ */
+
+@keyframes staggerIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-item {
+  animation: staggerIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.stagger-item:nth-child(1)  { animation-delay: 0.04s; }
+.stagger-item:nth-child(2)  { animation-delay: 0.08s; }
+.stagger-item:nth-child(3)  { animation-delay: 0.12s; }
+.stagger-item:nth-child(4)  { animation-delay: 0.16s; }
+.stagger-item:nth-child(5)  { animation-delay: 0.20s; }
+.stagger-item:nth-child(6)  { animation-delay: 0.24s; }
+.stagger-item:nth-child(7)  { animation-delay: 0.28s; }
+.stagger-item:nth-child(8)  { animation-delay: 0.32s; }
+.stagger-item:nth-child(9)  { animation-delay: 0.36s; }
+.stagger-item:nth-child(10) { animation-delay: 0.40s; }
+.stagger-item:nth-child(n+11) { animation-delay: 0.44s; }
+
+/* ============================================
+   GLASSMORPHISM EFFECTS
+   ============================================ */
+
+.glass {
+  background: rgba(31, 41, 55, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-strong {
+  background: rgba(31, 41, 55, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================
+   MODERN CARD EFFECTS
+   ============================================ */
+
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+   GRADIENT ANIMATIONS
+   ============================================ */
+
+.gradient-animate {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ============================================
+   BUTTON EFFECTS
+   ============================================ */
+
+.btn-modern {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-modern::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-modern:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* ============================================
+   INPUT FOCUS EFFECTS
+   ============================================ */
+
+.input-modern {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.input-modern:focus {
+  transform: scale(1.01);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* ============================================
+   LOADING SKELETON
+   ============================================ */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(55, 65, 81, 0.4) 0%,
+    rgba(75, 85, 99, 0.6) 50%,
+    rgba(55, 65, 81, 0.4) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.5rem;
+}
+
+/* ============================================
+   STATUS BADGE ANIMATIONS
+   ============================================ */
+
+.badge-pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ============================================
+   TOOLTIP IMPROVEMENTS
+   ============================================ */
+
+.tooltip {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* ============================================
+   MICRO-INTERACTIONS
+   ============================================ */
+
+.hover-lift {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+}
+
+/* ============================================
+   FOCUS VISIBLE (Accessibility)
+   ============================================ */
+
+*:focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.6);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   SMOOTH TEXT RENDERING
+   ============================================ */
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============================================
+   BACKDROP BLUR FOR MODALS
+   ============================================ */
+
+.backdrop-blur-modern {
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+}
+
+/* ============================================
+   TASK STATUS COMPLETION ANIMATIONS
+   ============================================ */
+
+/* Green fill animation for completed tasks */
+@keyframes fillGreen {
+  0% {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.5) 0%, rgba(31, 41, 55, 0.5) 100%);
+    box-shadow: 0 0 0 rgba(34, 197, 94, 0);
+  }
+  50% {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%);
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.4);
+  }
+  100% {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+  }
+}
+
+/* Orange fill animation for tasks completed late */
+@keyframes fillOrange {
+  0% {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.5) 0%, rgba(31, 41, 55, 0.5) 100%);
+    box-shadow: 0 0 0 rgba(249, 115, 22, 0);
+  }
+  50% {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(251, 146, 60, 0.15) 100%);
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.4);
+  }
+  100% {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(251, 146, 60, 0.1) 100%);
+    box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+  }
+}
+
+/* Red fill animation for overdue tasks */
+@keyframes fillRed {
+  0% {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.5) 0%, rgba(31, 41, 55, 0.5) 100%);
+    box-shadow: 0 0 0 rgba(239, 68, 68, 0);
+  }
+  50% {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.15) 100%);
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+  }
+  100% {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+  }
+}
+
+/* Blue animation for in-progress tasks */
+@keyframes fillBlue {
+  0% {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.5) 0%, rgba(31, 41, 55, 0.5) 100%);
+    box-shadow: 0 0 0 rgba(59, 130, 246, 0);
+  }
+  50% {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(99, 102, 241, 0.15) 100%);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+  }
+  100% {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+  }
+}
+
+/* Task completion animation classes */
+.task-complete-green {
+  animation: fillGreen 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.task-complete-orange {
+  animation: fillOrange 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.task-complete-red {
+  animation: fillRed 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.task-in-progress {
+  animation: fillBlue 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Static background states (after animation completes) */
+.task-bg-green {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.task-bg-orange {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(251, 146, 60, 0.1) 100%);
+  border-color: rgba(249, 115, 22, 0.3);
+}
+
+.task-bg-red {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.task-bg-blue {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.task-bg-gray {
+  background: linear-gradient(135deg, rgba(55, 65, 81, 0.5) 0%, rgba(75, 85, 99, 0.5) 100%);
+  border-color: rgba(75, 85, 99, 0.3);
+}
+
+/* ============================================
+   KANBAN BOARD STYLES
+   ============================================ */
+
+.kanban-col {
+  background: rgba(17, 24, 39, 0.4);
+  min-height: 200px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.kanban-col-over {
+  background: rgba(99, 102, 241, 0.08) !important;
+  border-color: rgba(99, 102, 241, 0.5) !important;
+}
+
+.kanban-card-dragging {
+  opacity: 0.35;
+  transform: rotate(1.5deg) scale(0.98);
+}
+
+/* ============================================
+   MODERN DATE BADGE STYLES
+   ============================================ */
+
+.date-badge {
+  @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-300;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.date-badge-icon {
+  @apply text-sm;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* ============================================
+   CSS ПЕРЕМЕННЫЕ — семантические токены (как у Notion/Linear)
+   Dark theme по умолчанию, Light theme переопределяет
+   ============================================ */
+
+:root {
+  /* Фоны */
+  --bg-page:       #111827;   /* bg-gray-900 */
+  --bg-card:       #1f2937;   /* bg-gray-800 */
+  --bg-elevated:   #374151;   /* bg-gray-700 */
+  --bg-input:      rgba(55,65,81,0.5);
+  --bg-input-hover:rgba(55,65,81,0.8);
+
+  /* Текст */
+  --text-primary:  #f9fafb;   /* почти белый */
+  --text-secondary:#9ca3af;   /* gray-400 */
+  --text-muted:    #6b7280;   /* gray-500 */
+
+  /* Рамки */
+  --border:        rgba(75,85,99,0.5);
+  --border-strong: rgba(107,114,128,0.5);
+
+  /* Бейджи дат — достаточно тёмные для тёмной темы */
+  --badge-red-bg:    rgba(239,68,68,0.2);
+  --badge-red-text:  #fca5a5;   /* red-300 */
+  --badge-red-border:rgba(239,68,68,0.5);
+
+  --badge-orange-bg:    rgba(249,115,22,0.2);
+  --badge-orange-text:  #fdba74;  /* orange-300 */
+  --badge-orange-border:rgba(249,115,22,0.5);
+
+  --badge-yellow-bg:    rgba(234,179,8,0.2);
+  --badge-yellow-text:  #fde047;  /* yellow-300 */
+  --badge-yellow-border:rgba(234,179,8,0.5);
+
+  --badge-blue-bg:    rgba(59,130,246,0.2);
+  --badge-blue-text:  #93c5fd;   /* blue-300 */
+  --badge-blue-border:rgba(59,130,246,0.5);
+
+  --badge-green-bg:    rgba(34,197,94,0.2);
+  --badge-green-text:  #86efac;  /* green-300 */
+  --badge-green-border:rgba(34,197,94,0.5);
+
+  --badge-gray-bg:    rgba(107,114,128,0.2);
+  --badge-gray-text:  #d1d5db;   /* gray-300 */
+  --badge-gray-border:rgba(107,114,128,0.5);
+
+  /* Статус-бейджи (todo/in_progress/done) */
+  --status-done-bg:   rgba(34,197,94,0.2);
+  --status-done-text: #4ade80;   /* green-400 */
+  --status-ip-bg:     rgba(59,130,246,0.2);
+  --status-ip-text:   #60a5fa;   /* blue-400 */
+  --status-todo-bg:   rgba(107,114,128,0.2);
+  --status-todo-text: #9ca3af;   /* gray-400 */
+
+  /* Вкладки (tabs) неактивные */
+  --tab-inactive-bg:   rgba(31,41,55,0.5);
+  --tab-inactive-text: #9ca3af;
+  --tab-inactive-border: rgba(55,65,81,0.5);
+}
+
+.light-theme {
+  /* Фоны */
+  --bg-page:       #f1f5f9;
+  --bg-card:       #ffffff;
+  --bg-elevated:   #f8fafc;
+  --bg-input:      #f1f5f9;
+  --bg-input-hover:#e2e8f0;
+
+  /* Текст */
+  --text-primary:  #0f172a;
+  --text-secondary:#475569;
+  --text-muted:    #94a3b8;
+
+  /* Рамки */
+  --border:        #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  /* Бейджи дат — насыщенные для светлого фона */
+  --badge-red-bg:    rgba(254,226,226,0.9);
+  --badge-red-text:  #b91c1c;   /* red-700 */
+  --badge-red-border:rgba(239,68,68,0.4);
+
+  --badge-orange-bg:    rgba(255,237,213,0.9);
+  --badge-orange-text:  #c2410c;  /* orange-700 */
+  --badge-orange-border:rgba(249,115,22,0.4);
+
+  --badge-yellow-bg:    rgba(254,249,195,0.9);
+  --badge-yellow-text:  #a16207;  /* yellow-700 */
+  --badge-yellow-border:rgba(234,179,8,0.4);
+
+  --badge-blue-bg:    rgba(219,234,254,0.9);
+  --badge-blue-text:  #1d4ed8;  /* blue-700 */
+  --badge-blue-border:rgba(59,130,246,0.4);
+
+  --badge-green-bg:    rgba(220,252,231,0.9);
+  --badge-green-text:  #15803d;  /* green-700 */
+  --badge-green-border:rgba(34,197,94,0.4);
+
+  --badge-gray-bg:    rgba(241,245,249,0.9);
+  --badge-gray-text:  #475569;   /* slate-600 */
+  --badge-gray-border:#e2e8f0;
+
+  /* Статус-бейджи */
+  --status-done-bg:   rgba(220,252,231,0.8);
+  --status-done-text: #15803d;
+  --status-ip-bg:     rgba(219,234,254,0.8);
+  --status-ip-text:   #1d4ed8;
+  --status-todo-bg:   rgba(241,245,249,0.8);
+  --status-todo-text: #475569;
+
+  /* Вкладки неактивные */
+  --tab-inactive-bg:   #f1f5f9;
+  --tab-inactive-text: #64748b;
+  --tab-inactive-border:#e2e8f0;
+}
+
+/* ============================================
+   LIGHT THEME — использует CSS-переменные из :root
+   Принцип Notion/Linear: все цвета через переменные,
+   цветные action-элементы (кнопки с gradient) — не трогаем
+   ============================================ */
+
+/* --- Фоны --- */
+.light-theme body { background-color: var(--bg-page); color: var(--text-primary); }
+.light-theme .bg-gray-900 { background-color: var(--bg-page) !important; }
+.light-theme .bg-gray-800 {
+  background-color: var(--bg-card) !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04);
+}
+.light-theme .bg-gray-700  { background-color: var(--bg-elevated) !important; }
+.light-theme .bg-gray-700\/50 { background-color: var(--bg-input) !important; }
+.light-theme .bg-gray-700\/30 { background-color: var(--bg-input) !important; }
+.light-theme .bg-gray-800\/50 { background-color: var(--bg-elevated) !important; }
+
+/* --- Хедер --- */
+.light-theme header {
+  background-color: var(--bg-card) !important;
+  border-bottom-color: var(--border) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* ============================================
+   BREADCRUMB — тёмная тема (default)
+   ============================================ */
+.breadcrumb-link {
+  color: #6b7280; /* gray-500 */
+}
+.breadcrumb-link:hover {
+  color: #d1d5db; /* gray-300 */
+  background-color: rgba(255,255,255,0.06);
+}
+.breadcrumb-current {
+  color: #e0e7ff; /* indigo-100 */
+  background-color: rgba(99,102,241,0.18);
+  border: 1px solid rgba(99,102,241,0.3);
+}
+
+/* ============================================
+   BREADCRUMB — светлая тема
+   ============================================ */
+.light-theme .breadcrumb-link {
+  color: #64748b; /* slate-500 */
+}
+.light-theme .breadcrumb-link:hover {
+  color: #1e293b;
+  background-color: rgba(0,0,0,0.05);
+}
+.light-theme .breadcrumb-current {
+  color: #3730a3; /* indigo-800 — тёмный, хорошо читается на белом */
+  background-color: rgba(99,102,241,0.12);
+  border: 1px solid rgba(99,102,241,0.35);
+}
+.light-theme header svg.text-gray-600 {
+  color: #94a3b8 !important; /* разделитель › чуть виднее */
+}
+
+/* --- Рамки --- */
+.light-theme .border-gray-700   { border-color: var(--border) !important; }
+.light-theme .border-gray-700\/50 { border-color: var(--border) !important; }
+.light-theme .border-gray-600\/50 { border-color: var(--border-strong) !important; }
+
+/* --- Нейтральный текст --- */
+.light-theme .text-gray-300 { color: var(--text-secondary) !important; }
+.light-theme .text-gray-400 { color: var(--text-muted) !important; }
+.light-theme .text-gray-500 { color: var(--text-muted) !important; }
+
+/* --- text-white на нейтральных элементах (не кнопках с цветным фоном) ---
+   Ключевое правило: :not(button) + :not([class*="from-"]) защищает все gradient кнопки */
+.light-theme :not(button):not([class*="from-"]):not([class*="bg-indigo-"]):not([class*="bg-red-"]):not([class*="bg-green-"]):not([class*="bg-blue-"]):not([class*="bg-orange-"]).text-white {
+  color: var(--text-primary) !important;
+}
+/* Дополнительно — заголовки всегда тёмные */
+.light-theme h1, .light-theme h2, .light-theme h3, .light-theme h4 {
+  color: var(--text-primary);
+}
+
+/* --- Glassmorphism --- */
+.light-theme .glass {
+  background: rgba(255,255,255,0.92) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.light-theme .glass-strong {
+  background: rgba(255,255,255,0.99) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* --- Inputs глобально --- */
+.light-theme input[type="text"],
+.light-theme input[type="password"],
+.light-theme input[type="email"],
+.light-theme textarea {
+  background-color: var(--bg-input) !important;
+  border-color: var(--border-strong) !important;
+  color: var(--text-primary) !important;
+}
+.light-theme input::placeholder,
+.light-theme textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* --- Вкладки (tabs) неактивные: bg-gray-800/50 border-gray-700/50 --- */
+/* Уже покрыто bg-gray-800\/50 выше, но нужен текст */
+.light-theme .bg-gray-800\/50.text-gray-400 { color: var(--tab-inactive-text) !important; }
+
+/* === КАРТОЧКИ ЗАДАЧ === */
+/* Насыщенный цвет фона + тёмный текст-inherit */
+.light-theme .task-bg-gray {
+  background: linear-gradient(135deg, rgba(226,232,240,0.97) 0%, rgba(203,213,225,0.92) 100%);
+  border-color: rgba(100,116,139,0.35);
+  color: #1e293b;
+}
+.light-theme .task-bg-green {
+  background: linear-gradient(135deg, rgba(187,247,208,0.97) 0%, rgba(134,239,172,0.88) 100%);
+  border-color: rgba(34,197,94,0.45);
+  color: #14532d;
+}
+.light-theme .task-bg-blue {
+  background: linear-gradient(135deg, rgba(191,219,254,0.97) 0%, rgba(165,180,252,0.88) 100%);
+  border-color: rgba(59,130,246,0.45);
+  color: #1e3a8a;
+}
+.light-theme .task-bg-red {
+  background: linear-gradient(135deg, rgba(254,202,202,0.97) 0%, rgba(252,165,165,0.92) 100%);
+  border-color: rgba(239,68,68,0.45);
+  color: #7f1d1d;
+}
+.light-theme .task-bg-orange {
+  background: linear-gradient(135deg, rgba(254,215,170,0.97) 0%, rgba(253,186,116,0.92) 100%);
+  border-color: rgba(249,115,22,0.45);
+  color: #7c2d12;
+}
+/* Текст и подтекст внутри карточек берут цвет из родителя */
+.light-theme .task-bg-green .text-white,
+.light-theme .task-bg-blue .text-white,
+.light-theme .task-bg-red .text-white,
+.light-theme .task-bg-orange .text-white,
+.light-theme .task-bg-gray .text-white { color: inherit !important; }
+
+.light-theme .task-bg-green .text-gray-200,
+.light-theme .task-bg-blue .text-gray-200,
+.light-theme .task-bg-red .text-gray-200,
+.light-theme .task-bg-orange .text-gray-200,
+.light-theme .task-bg-gray .text-gray-200 { color: inherit !important; }
+
+.light-theme .task-bg-green .text-gray-400,
+.light-theme .task-bg-blue .text-gray-400,
+.light-theme .task-bg-red .text-gray-400,
+.light-theme .task-bg-orange .text-gray-400,
+.light-theme .task-bg-gray .text-gray-400 { color: currentColor !important; opacity: 0.72; }
+
+.light-theme .task-bg-green .text-gray-500,
+.light-theme .task-bg-blue .text-gray-500,
+.light-theme .task-bg-red .text-gray-500,
+.light-theme .task-bg-orange .text-gray-500,
+.light-theme .task-bg-gray .text-gray-500 { color: currentColor !important; opacity: 0.60; }
+
+.light-theme .task-bg-green .text-gray-600,
+.light-theme .task-bg-blue .text-gray-600,
+.light-theme .task-bg-red .text-gray-600,
+.light-theme .task-bg-orange .text-gray-600,
+.light-theme .task-bg-gray .text-gray-600 { color: currentColor !important; opacity: 0.50; }
+
+/* === БЕЙДЖИ ДАТ === */
+/* Все классы берутся из dateFormatter.ts — переопределяем через CSS-переменные */
+.light-theme .bg-red-500\/20    { background-color: var(--badge-red-bg) !important; }
+.light-theme .text-red-300      { color: var(--badge-red-text) !important; }
+.light-theme .border-red-500\/50 { border-color: var(--badge-red-border) !important; }
+
+.light-theme .bg-orange-500\/20    { background-color: var(--badge-orange-bg) !important; }
+.light-theme .text-orange-300      { color: var(--badge-orange-text) !important; }
+.light-theme .border-orange-500\/50 { border-color: var(--badge-orange-border) !important; }
+
+.light-theme .bg-yellow-500\/20    { background-color: var(--badge-yellow-bg) !important; }
+.light-theme .text-yellow-300      { color: var(--badge-yellow-text) !important; }
+.light-theme .border-yellow-500\/50 { border-color: var(--badge-yellow-border) !important; }
+
+.light-theme .bg-blue-500\/20    { background-color: var(--badge-blue-bg) !important; }
+.light-theme .text-blue-300      { color: var(--badge-blue-text) !important; }
+.light-theme .border-blue-500\/50 { border-color: var(--badge-blue-border) !important; }
+
+.light-theme .bg-green-500\/20    { background-color: var(--badge-green-bg) !important; }
+.light-theme .text-green-300      { color: var(--badge-green-text) !important; }
+.light-theme .border-green-500\/50 { border-color: var(--badge-green-border) !important; }
+
+.light-theme .bg-gray-500\/20    { background-color: var(--badge-gray-bg) !important; }
+.light-theme .text-gray-300      { color: var(--badge-gray-text) !important; }
+.light-theme .border-gray-500\/50 { border-color: var(--badge-gray-border) !important; }
+
+/* === СТАТУС-БЕЙДЖИ (todo/in_progress/done) === */
+.light-theme .bg-green-500\/20.text-green-400 {
+  background-color: var(--status-done-bg) !important;
+  color: var(--status-done-text) !important;
+}
+.light-theme .bg-blue-500\/20.text-blue-400 {
+  background-color: var(--status-ip-bg) !important;
+  color: var(--status-ip-text) !important;
+}
+.light-theme .bg-gray-500\/20.text-gray-400 {
+  background-color: var(--status-todo-bg) !important;
+  color: var(--status-todo-text) !important;
+}
+/* Standalone цветные тексты */
+.light-theme .text-green-400 { color: var(--status-done-text) !important; }
+.light-theme .text-blue-400  { color: var(--status-ip-text) !important; }
+.light-theme .text-red-400   { color: #dc2626 !important; }
+.light-theme .text-yellow-400 { color: #a16207 !important; }
+
+/* === ASSIGNEE AVATARS — защита от затемнения ===
+   Аватарки используют gradient + text-white — не трогаем */
+.light-theme [class*="from-"][class*="to-"].text-white,
+.light-theme div[class*="bg-gradient-to-br"].text-white {
+  color: #ffffff !important;
+}
+
+/* === SETTINGS MENU панель === */
+/* glass-strong text-white — только нейтральные div/span */
+.light-theme .glass-strong span:not([class*="from-"]).text-white,
+.light-theme .glass-strong p.text-white { color: var(--text-primary) !important; }
+
+/* Кнопки секций в меню */
+.light-theme .glass-strong .text-gray-300 { color: #334155 !important; }
+.light-theme .glass-strong .text-gray-400 { color: #64748b !important; }
+
+/* bg-gray-700/50 внутри glass (инпуты, карточки статистики) */
+.light-theme .glass .bg-gray-700\/50,
+.light-theme .glass-strong .bg-gray-700\/50 {
+  background-color: #f1f5f9 !important;
+  border-color: var(--border) !important;
+  color: var(--text-primary) !important;
+}
+/* Прогресс-бар трек */
+.light-theme .glass .bg-gray-700 { background-color: #e2e8f0 !important; }
+
+/* Цифра % в статистике */
+.light-theme .glass div.text-2xl.text-white,
+.light-theme .glass span.text-white { color: var(--text-primary) !important; }
+
+/* Кнопки периода в статистике (flex-1 text-xs внутри glass) — неактивные */
+.light-theme .glass button.flex-1.text-xs:not([class*="bg-indigo"]) {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
+}
+.light-theme .glass button.flex-1.text-xs.bg-indigo-600 {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+/* Аватар в шапке меню — белый текст */
+.light-theme .glass-strong div[class*="from-purple"],
+.light-theme .glass-strong div[class*="from-blue"],
+.light-theme .glass-strong div[class*="from-green"],
+.light-theme .glass-strong div[class*="from-orange"],
+.light-theme .glass-strong div[class*="from-pink"],
+.light-theme .glass-strong div[class*="from-yellow"] { color: #ffffff !important; }
+
+/* Фон шапки SettingsMenu */
+.light-theme .glass-strong div[class*="from-indigo-6"][class*="to-purple"] {
+  background: linear-gradient(to right, rgba(79,70,229,0.12), rgba(124,58,237,0.12)) !important;
+}
+
+/* === ЗАЩИТА ВСЕХ ЦВЕТНЫХ КНОПОК — белый текст всегда === */
+.light-theme button[class*="from-red"],
+.light-theme button[class*="from-blue"],
+.light-theme button[class*="from-indigo"],
+.light-theme button[class*="from-orange"],
+.light-theme button[class*="from-green"],
+.light-theme button[class*="from-purple"] {
+  color: #ffffff !important;
+}
+
+/* === ROLE BADGES — кружки ролей (O/A/W) всегда непрозрачные === */
+.role-badge-owner    { background-color: #7c3aed; color: #ffffff !important; }
+.role-badge-assignee { background-color: #2563eb; color: #ffffff !important; }
+.role-badge-watcher  { background-color: #64748b; color: #ffffff !important; }
+
+/* === RoleBadge / StatusBadge — светлая тема === */
+/* Owner (purple) */
+.light-theme .bg-purple-500\/20 { background-color: rgba(124,58,237,0.15) !important; }
+.light-theme .border-purple-500 { border-color: rgba(124,58,237,0.5) !important; }
+.light-theme .text-purple-300   { color: #6d28d9 !important; }
+/* Admin / in_progress (blue) — badge-specific (не перебивает задачи) */
+.light-theme div.bg-blue-500\/20,
+.light-theme div[class*="bg-blue-500/20"] { background-color: rgba(37,99,235,0.12) !important; }
+.light-theme .border-blue-500 { border-color: rgba(37,99,235,0.45) !important; }
+.light-theme .text-blue-300   { color: #1d4ed8 !important; }
+/* Done (green) */
+.light-theme .border-green-500 { border-color: rgba(22,163,74,0.45) !important; }
+.light-theme .text-green-300   { color: #15803d !important; }
+/* Todo (gray badge) */
+.light-theme div.bg-gray-500\/20 { background-color: rgba(100,116,139,0.12) !important; }
+.light-theme .border-gray-500  { border-color: rgba(100,116,139,0.45) !important; }
+
+/* === ASSIGNEE AVATARS — все затемнённые элементы === */
+
+/* +N кнопка: bg-gray-600 hover:bg-gray-500 — слейт-цвет с белым текстом */
+.light-theme .bg-gray-600,
+.light-theme button.bg-gray-600 {
+  background-color: #64748b !important;
+  color: #ffffff !important;
+}
+.light-theme .hover\:bg-gray-500:hover,
+.light-theme button.hover\:bg-gray-500:hover {
+  background-color: #475569 !important;
+}
+/* +N внутри цветных карточек — повышаем приоритет */
+.light-theme .task-bg-green button.bg-gray-600,
+.light-theme .task-bg-orange button.bg-gray-600,
+.light-theme .task-bg-red button.bg-gray-600,
+.light-theme .task-bg-blue button.bg-gray-600,
+.light-theme .task-bg-gray button.bg-gray-600 {
+  background-color: #475569 !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Маленькие кружки ролей: bg-purple-500/90, bg-blue-500/90, bg-gray-500/90 + text-white
+   Проблема: внутри цветных task-карточек opacity /90 смешивается с цветным фоном.
+   Решение: делаем полностью непрозрачными и всегда с белым текстом */
+.light-theme .bg-purple-500\/90 {
+  background-color: #7c3aed !important;
+  color: #ffffff !important;
+}
+.light-theme .bg-blue-500\/90 {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
+.light-theme .bg-gray-500\/90 {
+  background-color: #64748b !important;
+  color: #ffffff !important;
+}
+/* Внутри цветных карточек — ещё выше приоритет, colour не inherit от карточки */
+.light-theme .task-bg-green .bg-purple-500\/90,
+.light-theme .task-bg-green .bg-blue-500\/90,
+.light-theme .task-bg-green .bg-gray-500\/90,
+.light-theme .task-bg-orange .bg-purple-500\/90,
+.light-theme .task-bg-orange .bg-blue-500\/90,
+.light-theme .task-bg-orange .bg-gray-500\/90,
+.light-theme .task-bg-red .bg-purple-500\/90,
+.light-theme .task-bg-red .bg-blue-500\/90,
+.light-theme .task-bg-red .bg-gray-500\/90,
+.light-theme .task-bg-blue .bg-purple-500\/90,
+.light-theme .task-bg-blue .bg-blue-500\/90,
+.light-theme .task-bg-blue .bg-gray-500\/90,
+.light-theme .task-bg-gray .bg-purple-500\/90,
+.light-theme .task-bg-gray .bg-blue-500\/90,
+.light-theme .task-bg-gray .bg-gray-500\/90 {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+/* Карточки задают color через inherit — перебиваем для текста внутри кружков ролей */
+.light-theme [class*="task-bg-"] .bg-purple-500\/90,
+.light-theme [class*="task-bg-"] .bg-blue-500\/90,
+.light-theme [class*="task-bg-"] .bg-gray-500\/90 {
+  color: #ffffff !important;
+}
+
+/* Tooltip при наведении: absolute div с bg-gray-800 text-white pointer-events-none
+   Намеренно тёмный — хорошо контрастирует с любым фоном */
+.light-theme .pointer-events-none.bg-gray-800,
+.light-theme div.bg-gray-800.text-white.pointer-events-none {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+/* text-gray-400 внутри tooltip тоже светлый */
+.light-theme .pointer-events-none .text-gray-400 {
+  color: #94a3b8 !important;
+}
+
+/* === СКРОЛЛБАР === */
+.light-theme * { scrollbar-color: rgba(100,116,139,0.4) transparent; }
+.light-theme *::-webkit-scrollbar-thumb { background: rgba(100,116,139,0.35); }
+.light-theme *::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.5); }
+
+/* ============================================
+   LIGHT THEME — ДОПОЛНИТЕЛЬНЫЕ ИСПРАВЛЕНИЯ
+   ============================================ */
+
+/* === Журнал активности (ActivityLogPanel) === */
+.light-theme .bg-gray-700\/20 { background-color: rgba(0,0,0,0.04) !important; }
+.light-theme .border-gray-600\/30 { border-color: var(--border) !important; }
+.light-theme .border-gray-600\/20 { border-color: var(--border) !important; }
+.light-theme .border-indigo-500\/20 { border-color: rgba(99,102,241,0.25) !important; }
+.light-theme .text-indigo-400 { color: #4f46e5 !important; }
+.light-theme .text-indigo-300 { color: #4338ca !important; }
+.light-theme .text-amber-400  { color: #b45309 !important; }
+.light-theme .text-orange-400 { color: #c2410c !important; }
+
+/* === Code blocks в светлой теме === */
+.light-theme .code-block-wrapper {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+.light-theme .code-block-header {
+  background: #f1f5f9 !important;
+  border-bottom-color: #e2e8f0 !important;
+}
+.light-theme .code-block-lang { color: #64748b !important; }
+.light-theme .copy-code-btn {
+  color: #64748b !important;
+  border-color: #cbd5e1 !important;
+  background: transparent !important;
+}
+.light-theme .copy-code-btn:hover {
+  color: #1e293b !important;
+  border-color: rgba(99,102,241,0.5) !important;
+  background: rgba(99,102,241,0.08) !important;
+}
+.light-theme .code-block-wrapper pre {
+  color: #1e293b !important;
+}
+.light-theme .code-block-wrapper pre code {
+  color: #1e293b !important;
+}
+
+/* === Аналитика — карточки === */
+.light-theme .border-gray-700\/50 { border-color: var(--border) !important; }
+.light-theme .border-gray-600\/30 { border-color: var(--border) !important; }
+
+/* Прогресс-бары в аналитике */
+.light-theme .bg-gray-700 { background-color: #e2e8f0 !important; }
+.light-theme .bg-gray-600  { background-color: #cbd5e1 !important; }
+
+/* Разделитель | в аналитике */
+.light-theme .bg-gray-700.w-px { background-color: #e2e8f0 !important; }
+
+/* Radial progress — серый трек */
+.light-theme circle[stroke="rgba(255,255,255,0.07)"] { stroke: rgba(0,0,0,0.08) !important; }
+
+/* Тепловая карта — пустые ячейки */
+.light-theme .heatmap-empty { background: rgba(0,0,0,0.06) !important; }
+
+/* Velocity Chart — сетка */
+.light-theme .velocity-grid { stroke: rgba(0,0,0,0.07) !important; }
+.light-theme .velocity-label { fill: #94a3b8 !important; }
+
+/* Переключатель периода bg-gray-700/40 */
+.light-theme .bg-gray-700\/40 { background-color: #f1f5f9 !important; border-color: var(--border) !important; }
+
+/* Неактивные вкладки аналитики */
+.light-theme .bg-gray-800\/50.border-gray-700\/50 {
+  background-color: #f1f5f9 !important;
+  border-color: var(--border) !important;
+  color: #475569 !important;
+}
+
+/* === AssigneeSelector выпадашка === */
+.light-theme .assignee-dropdown-panel {
+  background: rgba(255,255,255,0.99) !important;
+  border-color: var(--border) !important;
+}
+.light-theme .bg-white\/5  { background-color: rgba(0,0,0,0.04) !important; }
+.light-theme .bg-white\/8  { background-color: rgba(0,0,0,0.06) !important; }
+.light-theme .border-white\/8  { border-color: var(--border) !important; }
+.light-theme .border-white\/5  { border-color: var(--border) !important; }
+.light-theme .text-gray-500.hover\:text-gray-300:hover { color: #1e293b !important; }
+
+/* Строки в AssigneeSelector */
+.light-theme .assignee-row:hover { background: rgba(99,102,241,0.06) !important; }
+.light-theme .assignee-row.selected { background: rgba(99,102,241,0.08) !important; border-left-color: rgba(99,102,241,0.5) !important; }
+
+/* bg-gray-700 маленьких кружков в футере AssigneeSelector */
+.light-theme .border-gray-800 { border-color: #e2e8f0 !important; }
+
+/* === NotificationBell панель и тосты === */
+.light-theme .border-gray-700\/50 { border-color: var(--border) !important; }
+.light-theme div[class*="hover:bg-gray-700\/50"]:hover { background-color: rgba(0,0,0,0.04) !important; }
+
+/* === GlobalSearch === */
+.light-theme .bg-gray-900.rounded-xl { background-color: var(--bg-card) !important; }
+
+/* === MilestoneCard === */
+.light-theme .bg-gray-800.rounded-xl.border { border-color: var(--border) !important; }
+.light-theme .border-gray-700\/50 { border-color: var(--border) !important; }
+.light-theme .bg-gray-700\/60 { background-color: #e2e8f0 !important; }
+
+/* === Priority buttons в светлой теме === */
+.light-theme .priority-btn:not(.selected) {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #475569 !important;
+}
+.light-theme .bg-gray-700\/30 { background-color: #f8fafc !important; }
+
+/* === Inline-edit hover кнопки (карандаш) === */
+.light-theme button.hover\:bg-gray-700\/50:hover { background-color: rgba(0,0,0,0.06) !important; }
+.light-theme .hover\:bg-gray-600\/50:hover { background-color: rgba(0,0,0,0.08) !important; }
+
+/* ============================================
+   MARKDOWN CONTENT STYLES
+   ============================================ */
+
+.markdown-content {
+  color: #d1d5db; /* gray-300 */
+  line-height: 1.7;
+  word-break: break-word;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.markdown-content > *:first-child { margin-top: 0; }
+.markdown-content > *:last-child { margin-bottom: 0; }
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4 {
+  color: #f9fafb;
+  font-weight: 700;
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+.markdown-content h1 { font-size: 1.5rem; }
+.markdown-content h2 { font-size: 1.25rem; padding-bottom: 0.35em; border-bottom: 1px solid rgba(75,85,99,0.5); }
+.markdown-content h3 { font-size: 1.1rem; }
+.markdown-content h4 { font-size: 1rem; }
+
+.markdown-content p { margin-bottom: 0.75em; }
+
+.markdown-content ul,
+.markdown-content ol { margin: 0 0 0.75em 1.25em; }
+.markdown-content ul > li { list-style-type: disc; margin-bottom: 0.3em; }
+.markdown-content ol > li { list-style-type: decimal; margin-bottom: 0.3em; }
+
+.markdown-content a {
+  color: #818cf8; /* indigo-400 */
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+.markdown-content a:hover { color: #a5b4fc; }
+
+.markdown-content code {
+  background: rgba(55,65,81,0.7);
+  color: #fcd34d; /* amber-300 */
+  border: 1px solid rgba(75,85,99,0.5);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+  font-size: 0.85em;
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+}
+
+/* Code block wrapper with copy button (like Telegram) */
+.code-block-wrapper {
+  background: rgba(17,24,39,0.9);
+  border: 1px solid rgba(75,85,99,0.5);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 0.75em;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4em 0.9em;
+  background: rgba(31,41,55,0.8);
+  border-bottom: 1px solid rgba(75,85,99,0.4);
+}
+
+.code-block-lang {
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-size: 0.72em;
+  color: #9ca3af;
+  text-transform: lowercase;
+  letter-spacing: 0.03em;
+}
+
+.copy-code-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: 0.72em;
+  color: #9ca3af;
+  background: transparent;
+  border: 1px solid rgba(75,85,99,0.4);
+  border-radius: 5px;
+  padding: 0.2em 0.55em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.copy-code-btn:hover {
+  color: #e5e7eb;
+  border-color: rgba(99,102,241,0.5);
+  background: rgba(99,102,241,0.1);
+}
+
+.copy-code-btn.copied {
+  color: #4ade80;
+  border-color: rgba(74,222,128,0.5);
+  background: rgba(74,222,128,0.1);
+  box-shadow: 0 0 10px rgba(74,222,128,0.2), inset 0 0 8px rgba(74,222,128,0.05);
+  animation: copy-btn-glow 0.35s ease-out both;
+}
+
+.copy-code-btn svg {
+  flex-shrink: 0;
+}
+
+@keyframes copy-btn-glow {
+  0%   { transform: scale(0.9);  box-shadow: 0 0 0px rgba(74,222,128,0); }
+  40%  { transform: scale(1.08); box-shadow: 0 0 14px rgba(74,222,128,0.35); }
+  70%  { transform: scale(0.97); }
+  100% { transform: scale(1);    box-shadow: 0 0 8px rgba(74,222,128,0.15); }
+}
+
+/* Текст внутри кнопки "Скопировано" — slide-up + fade */
+@keyframes copy-text-in {
+  0%   { opacity: 0; transform: translateY(4px); }
+  60%  { opacity: 1; transform: translateY(-1px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.copy-code-btn.copied span,
+.copy-code-btn.copied svg {
+  animation: copy-text-in 0.25s ease-out both;
+}
+
+.code-block-wrapper pre {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0.9em 1.1em !important;
+  margin: 0 !important;
+  overflow-x: auto;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.markdown-content pre {
+  background: rgba(17,24,39,0.8);
+  border: 1px solid rgba(75,85,99,0.5);
+  border-radius: 10px;
+  padding: 1em 1.25em;
+  overflow-x: auto;
+  margin-bottom: 0.75em;
+}
+.markdown-content pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #e5e7eb;
+  font-size: 0.875em;
+}
+
+.markdown-content blockquote {
+  border-left: 3px solid #6366f1;
+  background: rgba(99,102,241,0.06);
+  margin: 0 0 0.75em 0;
+  padding: 0.5em 1em;
+  border-radius: 0 6px 6px 0;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0.75em;
+  font-size: 0.9em;
+}
+.markdown-content th,
+.markdown-content td {
+  border: 1px solid rgba(75,85,99,0.5);
+  padding: 0.45em 0.75em;
+  text-align: left;
+}
+.markdown-content th {
+  background: rgba(55,65,81,0.5);
+  color: #f9fafb;
+  font-weight: 600;
+}
+.markdown-content tr:nth-child(even) td { background: rgba(31,41,55,0.3); }
+
+.markdown-content hr {
+  border: none;
+  border-top: 1px solid rgba(75,85,99,0.5);
+  margin: 1em 0;
+}
+
+.markdown-content strong { color: #f9fafb; font-weight: 700; }
+.markdown-content em { font-style: italic; }
+.markdown-content del { text-decoration: line-through; color: #6b7280; }
+
+/* input[type=checkbox] в task lists */
+.markdown-content input[type="checkbox"] {
+  accent-color: #6366f1;
+  margin-right: 0.4em;
+}
+
+/* Light theme overrides */
+.light-theme .markdown-content { color: #374151; }
+.light-theme .markdown-content h1,
+.light-theme .markdown-content h2,
+.light-theme .markdown-content h3,
+.light-theme .markdown-content h4 { color: #111827; }
+.light-theme .markdown-content code { background: #f3f4f6; color: #b45309; border-color: #e5e7eb; }
+.light-theme .markdown-content pre { background: #f9fafb; border-color: #e5e7eb; }
+.light-theme .markdown-content pre code { color: #1f2937; }
+.light-theme .markdown-content blockquote { background: rgba(99,102,241,0.05); color: #6b7280; }
+.light-theme .markdown-content a { color: #4f46e5; }
+.light-theme .markdown-content a:hover { color: #4338ca; }
+.light-theme .markdown-content th { background: #f3f4f6; color: #111827; }
+.light-theme .markdown-content tr:nth-child(even) td { background: #f9fafb; }
+.light-theme .markdown-content hr { border-color: #e5e7eb; }
+.light-theme .markdown-content strong { color: #111827; }
+
+/* ============================================
+   PRIORITY PILL BUTTONS
+   ============================================ */
+
+@keyframes prioritySelect {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(0.93); }
+  65%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+@keyframes priorityGlow {
+  0%   { box-shadow: 0 0 0px rgba(255,255,255,0); }
+  50%  { box-shadow: 0 0 12px var(--p-glow); }
+  100% { box-shadow: 0 0 6px var(--p-glow); }
+}
+
+.priority-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.priority-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.12) 0%, transparent 70%);
+}
+
+.priority-btn:hover::after { opacity: 1; }
+.priority-btn:hover { transform: translateY(-2px); }
+.priority-btn:active { transform: scale(0.95); }
+
+.priority-btn.selected {
+  animation: prioritySelect 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+             priorityGlow 0.5s ease-out 0.1s both;
+}
+
+.priority-btn.selected::after { opacity: 1; }
+
+/* ============================================
+   CUSTOM CHECKBOX (AssigneeSelector)
+   ============================================ */
+
+.assignee-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  border: 2px solid rgba(99,102,241,0.35);
+  background: rgba(31,41,55,0.6);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.assignee-checkbox:hover {
+  border-color: rgba(99,102,241,0.7);
+  background: rgba(99,102,241,0.1);
+  transform: scale(1.1);
+}
+
+.assignee-checkbox:checked {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-color: transparent;
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(99,102,241,0.5);
+  animation: checkPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.assignee-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+@keyframes checkPop {
+  0%   { transform: scale(0.7); }
+  60%  { transform: scale(1.15); }
+  100% { transform: scale(1.05); }
+}
+
+/* Assignee member row hover */
+.assignee-row {
+  transition: all 0.15s ease;
+  border-radius: 10px;
+}
+.assignee-row:hover {
+  background: rgba(99,102,241,0.08);
+}
+.assignee-row.selected {
+  background: rgba(99,102,241,0.06);
+  border-left: 2px solid rgba(99,102,241,0.4);
+}
+
