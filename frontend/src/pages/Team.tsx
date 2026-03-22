@@ -472,10 +472,10 @@ export default function Team() {
         }
       />
 
-      <main className="max-w-7xl mx-auto px-4 py-8 page-enter">
+      <main className="max-w-7xl mx-auto px-4 py-4 sm:py-8 page-enter">
         <MilestoneCard teamId={id!} onUpdate={loadTeamData} />
         {/* Tabs */}
-        <div className="flex flex-wrap gap-2 sm:gap-3 mb-6">
+        <div className="flex overflow-x-auto gap-2 mb-6 pb-1 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:gap-3">
           {([
             { key: 'tasks',     label: `${t('tasks')} (${filteredTasks.length})` },
             { key: 'notes',     label: `${t('notes')} (${filteredNotes.length})` },
@@ -486,7 +486,7 @@ export default function Team() {
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl font-semibold transition-all hover-lift text-sm sm:text-base whitespace-nowrap ${
+              className={`flex-shrink-0 px-3 sm:px-6 py-2 sm:py-2.5 rounded-xl font-semibold transition-all hover-lift text-xs sm:text-base whitespace-nowrap ${
                 activeTab === tab.key
                   ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
                   : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 border border-gray-700/50'
@@ -562,9 +562,9 @@ export default function Team() {
         {/* Tasks Tab */}
         {activeTab === 'tasks' && (
           <div className="bg-gray-800 rounded-xl p-6">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col gap-3 mb-6 sm:flex-row sm:justify-between sm:items-center">
               <h2 className="text-xl font-semibold text-white">{t('tasks')}</h2>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 {/* Toggle List / Kanban */}
                 <div className="flex gap-1 bg-gray-700/40 rounded-xl p-1 border border-gray-600/30">
                   <button
@@ -588,7 +588,7 @@ export default function Team() {
                 </div>
                 <button
                   onClick={() => setShowTaskForm(true)}
-                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-6 py-2.5 rounded-xl transition-all btn-modern hover-lift shadow-lg hover:shadow-xl font-medium"
+                  className="flex-1 sm:flex-none bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-4 sm:px-6 py-2.5 rounded-xl transition-all btn-modern hover-lift shadow-lg hover:shadow-xl font-medium text-sm sm:text-base text-center"
                 >
                   {t('newTask')}
                 </button>

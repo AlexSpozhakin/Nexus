@@ -23,7 +23,7 @@ export default function Header({ breadcrumbs, actions, onSearchOpen }: Props) {
 
   return (
     <header className="bg-gray-800/90 backdrop-blur-md border-b border-gray-700/60 sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex items-center gap-2 sm:gap-3">
         {/* Logo */}
         <div
           className="flex items-center gap-2 cursor-pointer flex-shrink-0 group"
@@ -55,18 +55,18 @@ export default function Header({ breadcrumbs, actions, onSearchOpen }: Props) {
                     /* Промежуточная ссылка — приглушённая, при наведении чуть светлее */
                     <button
                       onClick={() => navigate(crumb.path!)}
-                      className="breadcrumb-link text-sm truncate max-w-[110px] sm:max-w-[180px] px-1 py-0.5 rounded-md transition-colors"
+                      className="breadcrumb-link text-sm truncate max-w-[70px] sm:max-w-[180px] px-1 py-0.5 rounded-md transition-colors"
                     >
                       {crumb.label}
                     </button>
                   ) : isLast ? (
                     /* Текущая страница — pill с акцентом */
-                    <span className="breadcrumb-current inline-flex items-center gap-1.5 text-sm font-semibold px-2.5 py-0.5 rounded-lg truncate max-w-[130px] sm:max-w-[250px] flex-shrink-0">
+                    <span className="breadcrumb-current inline-flex items-center gap-1.5 text-sm font-semibold px-2.5 py-0.5 rounded-lg truncate max-w-[90px] sm:max-w-[250px] flex-shrink-0">
                       <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0 animate-pulse" />
                       <span className="truncate">{crumb.label}</span>
                     </span>
                   ) : (
-                    <span className="breadcrumb-link text-sm truncate max-w-[110px] sm:max-w-[180px] px-1 py-0.5">
+                    <span className="breadcrumb-link text-sm truncate max-w-[70px] sm:max-w-[180px] px-1 py-0.5">
                       {crumb.label}
                     </span>
                   )}
@@ -92,7 +92,7 @@ export default function Header({ breadcrumbs, actions, onSearchOpen }: Props) {
               }
             }}
             title="Search (press /)"
-            className="p-2 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-lg transition-colors"
+            className="p-1.5 sm:p-2 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-lg transition-colors flex-shrink-0"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

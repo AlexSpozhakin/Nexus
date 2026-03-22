@@ -36,6 +36,15 @@ html {
   background: rgba(99, 102, 241, 0.7);
 }
 
+/* Hide scrollbar (for horizontal tab scroll on mobile) */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 /* Modern scrollbar for dark areas */
 .dark-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(99, 102, 241, 0.3);
