@@ -10,7 +10,7 @@ export type TranslationKey =
   | 'title' | 'priority' | 'status' | 'dueDate' | 'assignees'
   | 'low' | 'medium' | 'high'
   | 'todo' | 'inProgress' | 'done' | 'cancelled'
-  | 'overdue' | 'completedLate'
+  | 'overdue' | 'completedLate' | 'overdueShort'
   // Notes
   | 'notes' | 'newNote' | 'createNote' | 'noteTitle' | 'noteContent'
   | 'shareWithTeam' | 'noNotes' | 'sharedBadge'
