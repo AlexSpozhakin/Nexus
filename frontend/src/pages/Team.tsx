@@ -455,63 +455,72 @@ export default function Team() {
       <Header
         breadcrumbs={[{ label: currentTeam?.name || '…', path: undefined }]}
         actions={
-          currentTeam?.owner_id === user?.id ? (
-            <div className="relative">
+          <div className="relative">
+            {/* Закрыть по клику вне */}
+            {showTeamMenu && (
+              <div className="fixed inset-0 z-40" onClick={() => setShowTeamMenu(false)} />
+            )}
+
+            {/* Кнопка трансформируется: ⋮ → действие */}
+            <div className="relative overflow-hidden" style={{ minWidth: '36px', height: '36px' }}>
+              {/* ⋮ кнопка — уходит влево */}
               <button
-                onClick={() => setShowTeamMenu(prev => !prev)}
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700/60 hover:bg-gray-600/70 text-gray-300 hover:text-white transition-all border border-gray-600/50"
+                onClick={() => setShowTeamMenu(true)}
+                style={{
+                  position: 'absolute', inset: 0,
+                  transition: 'transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease',
+                  transform: showTeamMenu ? 'translateX(-120%) scale(0.7)' : 'translateX(0) scale(1)',
+                  opacity: showTeamMenu ? 0 : 1,
+                  pointerEvents: showTeamMenu ? 'none' : 'auto',
+                }}
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700/60 hover:bg-gray-600/70 text-gray-300 hover:text-white border border-gray-600/50"
                 title="Team options"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" />
                 </svg>
               </button>
-              {showTeamMenu && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setShowTeamMenu(false)} />
-                  <div className="absolute right-0 mt-2 w-44 bg-gray-800 border border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden animate-fade-in">
-                    <button
-                      onClick={() => { setShowTeamMenu(false); handleDeleteTeam(); }}
-                      className="w-full flex items-center gap-2 px-4 py-3 text-red-400 hover:bg-red-500/10 transition-colors text-sm font-medium"
-                    >
-                      <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                      {t('deleteTeam')}
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
-          ) : (
-            <div className="relative">
+
+              {/* Кнопка действия — появляется справа */}
               <button
-                onClick={() => setShowTeamMenu(prev => !prev)}
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700/60 hover:bg-gray-600/70 text-gray-300 hover:text-white transition-all border border-gray-600/50"
-                title="Team options"
+                onClick={() => {
+                  setShowTeamMenu(false);
+                  currentTeam?.owner_id === user?.id ? handleDeleteTeam() : handleLeaveTeam();
+                }}
+                style={{
+                  position: 'absolute', inset: 0,
+                  transition: 'transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease',
+                  transform: showTeamMenu ? 'translateX(0) scale(1)' : 'translateX(120%) scale(0.7)',
+                  opacity: showTeamMenu ? 1 : 0,
+                  pointerEvents: showTeamMenu ? 'auto' : 'none',
+                  whiteSpace: 'nowrap',
+                  width: 'auto',
+                  padding: '0 12px',
+                }}
+                className={`h-9 flex items-center gap-1.5 rounded-lg text-xs font-semibold border ${
+                  currentTeam?.owner_id === user?.id
+                    ? 'bg-red-500/15 hover:bg-red-500/25 text-red-400 border-red-500/30'
+                    : 'bg-orange-500/15 hover:bg-orange-500/25 text-orange-400 border-orange-500/30'
+                }`}
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" />
-                </svg>
+                {currentTeam?.owner_id === user?.id ? (
+                  <>
+                    <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    {t('deleteTeam')}
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    {t('leaveTeam')}
+                  </>
+                )}
               </button>
-              {showTeamMenu && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setShowTeamMenu(false)} />
-                  <div className="absolute right-0 mt-2 w-44 bg-gray-800 border border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden animate-fade-in">
-                    <button
-                      onClick={() => { setShowTeamMenu(false); handleLeaveTeam(); }}
-                      className="w-full flex items-center gap-2 px-4 py-3 text-orange-400 hover:bg-orange-500/10 transition-colors text-sm font-medium"
-                    >
-                      <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                      </svg>
-                      {t('leaveTeam')}
-                    </button>
-                  </div>
-                </>
-              )}
             </div>
-          )
+          </div>
         }
       />
 
