@@ -43,7 +43,9 @@ export default function NotificationManager() {
       }
 
       console.log(`🔌 Connecting WebSocket for user: ${user.id}`);
-      const ws = new WebSocket(`ws://localhost:8080/ws?user_id=${user.id}`);
+      const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+      const wsUrl = backendUrl.replace(/^https?/, backendUrl.startsWith('https') ? 'wss' : 'ws');
+      const ws = new WebSocket(`${wsUrl}/ws?user_id=${user.id}`);
       wsRef.current = ws;
 
       ws.onopen = () => {
