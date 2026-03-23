@@ -469,6 +469,8 @@ export default function Team() {
                 width: showTeamMenu ? '140px' : '36px',
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
+                paddingLeft: showTeamMenu ? '10px' : '0px',
+                paddingRight: showTeamMenu ? '10px' : '0px',
               }}
               className={`h-9 flex items-center justify-center gap-2 rounded-lg text-sm font-semibold border z-50 relative ${
                 showTeamMenu
