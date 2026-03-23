@@ -456,70 +456,58 @@ export default function Team() {
         breadcrumbs={[{ label: currentTeam?.name || '…', path: undefined }]}
         actions={
           <div className="relative">
-            {/* Закрыть по клику вне */}
             {showTeamMenu && (
               <div className="fixed inset-0 z-40" onClick={() => setShowTeamMenu(false)} />
             )}
-
-            {/* Кнопка трансформируется: ⋮ → действие */}
-            <div className="relative overflow-hidden" style={{ minWidth: '36px', height: '36px' }}>
-              {/* ⋮ кнопка — уходит влево */}
-              <button
-                onClick={() => setShowTeamMenu(true)}
-                style={{
-                  position: 'absolute', inset: 0,
-                  transition: 'transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease',
-                  transform: showTeamMenu ? 'translateX(-120%) scale(0.7)' : 'translateX(0) scale(1)',
-                  opacity: showTeamMenu ? 0 : 1,
-                  pointerEvents: showTeamMenu ? 'none' : 'auto',
-                }}
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-700/60 hover:bg-gray-600/70 text-gray-300 hover:text-white border border-gray-600/50"
-                title="Team options"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" />
-                </svg>
-              </button>
-
-              {/* Кнопка действия — появляется справа */}
-              <button
-                onClick={() => {
-                  setShowTeamMenu(false);
-                  currentTeam?.owner_id === user?.id ? handleDeleteTeam() : handleLeaveTeam();
-                }}
-                style={{
-                  position: 'absolute', inset: 0,
-                  transition: 'transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease',
-                  transform: showTeamMenu ? 'translateX(0) scale(1)' : 'translateX(120%) scale(0.7)',
-                  opacity: showTeamMenu ? 1 : 0,
-                  pointerEvents: showTeamMenu ? 'auto' : 'none',
-                  whiteSpace: 'nowrap',
-                  width: 'auto',
-                  padding: '0 12px',
-                }}
-                className={`h-9 flex items-center gap-1.5 rounded-lg text-xs font-semibold border ${
-                  currentTeam?.owner_id === user?.id
-                    ? 'bg-red-500/15 hover:bg-red-500/25 text-red-400 border-red-500/30'
-                    : 'bg-orange-500/15 hover:bg-orange-500/25 text-orange-400 border-orange-500/30'
-                }`}
-              >
-                {currentTeam?.owner_id === user?.id ? (
-                  <>
-                    <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button
+              onClick={() => showTeamMenu
+                ? (setShowTeamMenu(false), currentTeam?.owner_id === user?.id ? handleDeleteTeam() : handleLeaveTeam())
+                : setShowTeamMenu(true)
+              }
+              style={{
+                transition: 'width 0.35s cubic-bezier(0.4,0,0.2,1), background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease',
+                width: showTeamMenu ? '140px' : '36px',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+              }}
+              className={`h-9 flex items-center justify-center gap-2 rounded-lg text-sm font-semibold border z-50 relative ${
+                showTeamMenu
+                  ? currentTeam?.owner_id === user?.id
+                    ? 'bg-red-500/15 hover:bg-red-500/25 text-red-400 border-red-500/40'
+                    : 'bg-orange-500/15 hover:bg-orange-500/25 text-orange-400 border-orange-500/40'
+                  : 'bg-gray-700/60 hover:bg-gray-600/70 text-gray-300 hover:text-white border-gray-600/50'
+              }`}
+            >
+              {/* Иконка — всегда видна, меняется */}
+              <span style={{ transition: 'transform 0.3s ease', transform: showTeamMenu ? 'rotate(0deg)' : 'rotate(0deg)', flexShrink: 0 }}>
+                {showTeamMenu ? (
+                  currentTeam?.owner_id === user?.id ? (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
-                    {t('deleteTeam')}
-                  </>
-                ) : (
-                  <>
-                    <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  ) : (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
-                    {t('leaveTeam')}
-                  </>
+                  )
+                ) : (
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" />
+                  </svg>
                 )}
-              </button>
-            </div>
+              </span>
+
+              {/* Текст — появляется при расширении */}
+              <span style={{
+                transition: 'opacity 0.2s ease 0.15s, max-width 0.35s ease',
+                opacity: showTeamMenu ? 1 : 0,
+                maxWidth: showTeamMenu ? '100px' : '0px',
+                overflow: 'hidden',
+                flexShrink: 0,
+              }}>
+                {currentTeam?.owner_id === user?.id ? t('deleteTeam') : t('leaveTeam')}
+              </span>
+            </button>
           </div>
         }
       />
