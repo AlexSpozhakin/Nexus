@@ -276,7 +276,7 @@ export default function NotificationBell() {
       {/* Toast notifications */}
       {createPortal(
         <div className="fixed top-16 right-4 z-[9998] flex flex-col gap-2 pointer-events-none">
-          {toasts.map((toast, i) => {
+          {toasts.map((toast) => {
             const c = cfg(toast.type);
             return (
               <div
