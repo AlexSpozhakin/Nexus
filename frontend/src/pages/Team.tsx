@@ -466,8 +466,8 @@ export default function Team() {
               }
               style={{
                 transition: 'width 0.4s cubic-bezier(0.4,0,0.2,1), background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease',
-                width: showTeamMenu ? '152px' : '36px',
-                minWidth: showTeamMenu ? '152px' : '36px',
+                width: showTeamMenu ? '172px' : '36px',
+                minWidth: showTeamMenu ? '172px' : '36px',
                 padding: showTeamMenu ? '0 12px' : '0',
               }}
               className={`h-9 flex items-center justify-center rounded-lg text-sm font-semibold border overflow-hidden z-50 relative whitespace-nowrap flex-shrink-0 ${
@@ -493,7 +493,7 @@ export default function Team() {
               {/* Текст — всегда в DOM, только ширина меняется */}
               <span style={{
                 transition: 'max-width 0.3s ease 0.1s, opacity 0.25s ease 0.15s, margin 0.3s ease',
-                maxWidth: showTeamMenu ? '120px' : '0px',
+                maxWidth: showTeamMenu ? '140px' : '0px',
                 opacity: showTeamMenu ? 1 : 0,
                 overflow: 'hidden',
                 marginLeft: showTeamMenu ? '6px' : '0px',
