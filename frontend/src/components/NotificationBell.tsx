@@ -183,20 +183,30 @@ export default function NotificationBell() {
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 {notifications.length > 0 && (
                   <>
+                    {/* Отметить все прочитанными */}
                     <button
                       onClick={markAllRead}
-                      className="text-xs px-2.5 py-1 text-indigo-400 hover:text-indigo-300 hover:bg-indigo-500/10 rounded-lg transition-colors"
+                      title={t('notifMarkAllRead')}
+                      className="flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 hover:border-indigo-400/50 hover:text-indigo-300 transition-all"
                     >
-                      {t('notifMarkAllRead')}
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span className="hidden sm:inline">{t('notifMarkAllRead')}</span>
                     </button>
+                    {/* Очистить */}
                     <button
                       onClick={clearAll}
-                      className="text-xs px-2.5 py-1 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                      title={t('notifClear')}
+                      className="flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg border border-red-500/20 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:border-red-400/40 hover:text-red-300 transition-all"
                     >
-                      {t('notifClear')}
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                      <span className="hidden sm:inline">{t('notifClear')}</span>
                     </button>
                   </>
                 )}
