@@ -465,47 +465,38 @@ export default function Team() {
                 : setShowTeamMenu(true)
               }
               style={{
-                transition: 'width 0.35s cubic-bezier(0.4,0,0.2,1), background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease',
-                width: showTeamMenu ? '140px' : '36px',
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
-                paddingLeft: showTeamMenu ? '10px' : '0px',
-                paddingRight: showTeamMenu ? '10px' : '0px',
+                transition: 'width 0.4s cubic-bezier(0.4,0,0.2,1), background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease',
+                width: showTeamMenu ? '152px' : '36px',
+                minWidth: showTeamMenu ? '152px' : '36px',
+                padding: showTeamMenu ? '0 12px' : '0',
               }}
-              className={`h-9 flex items-center justify-center gap-2 rounded-lg text-sm font-semibold border z-50 relative ${
+              className={`h-9 flex items-center justify-center rounded-lg text-sm font-semibold border overflow-hidden z-50 relative whitespace-nowrap flex-shrink-0 ${
                 showTeamMenu
                   ? currentTeam?.owner_id === user?.id
-                    ? 'bg-red-500/15 hover:bg-red-500/25 text-red-400 border-red-500/40'
-                    : 'bg-orange-500/15 hover:bg-orange-500/25 text-orange-400 border-orange-500/40'
+                    ? 'bg-red-500/15 hover:bg-red-500/25 text-red-400 border-red-500/40 shadow-lg shadow-red-500/10'
+                    : 'bg-orange-500/15 hover:bg-orange-500/25 text-orange-400 border-orange-500/40 shadow-lg shadow-orange-500/10'
                   : 'bg-gray-700/60 hover:bg-gray-600/70 text-gray-300 hover:text-white border-gray-600/50'
               }`}
             >
-              {/* Иконка — всегда видна, меняется */}
-              <span style={{ transition: 'transform 0.3s ease', transform: showTeamMenu ? 'rotate(0deg)' : 'rotate(0deg)', flexShrink: 0 }}>
-                {showTeamMenu ? (
-                  currentTeam?.owner_id === user?.id ? (
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                  ) : (
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                  )
-                ) : (
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" />
-                  </svg>
-                )}
+              {/* Иконка */}
+              <span
+                className="flex-shrink-0 flex items-center justify-center"
+                style={{ transition: 'transform 0.3s ease', transform: showTeamMenu ? 'scale(0.9)' : 'scale(1)' }}
+              >
+                {showTeamMenu
+                  ? currentTeam?.owner_id === user?.id
+                    ? <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    : <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                  : <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
+                }
               </span>
-
-              {/* Текст — появляется при расширении */}
+              {/* Текст — всегда в DOM, только ширина меняется */}
               <span style={{
-                transition: 'opacity 0.2s ease 0.15s, max-width 0.35s ease',
+                transition: 'max-width 0.3s ease 0.1s, opacity 0.25s ease 0.15s, margin 0.3s ease',
+                maxWidth: showTeamMenu ? '120px' : '0px',
                 opacity: showTeamMenu ? 1 : 0,
-                maxWidth: showTeamMenu ? '100px' : '0px',
                 overflow: 'hidden',
-                flexShrink: 0,
+                marginLeft: showTeamMenu ? '6px' : '0px',
               }}>
                 {currentTeam?.owner_id === user?.id ? t('deleteTeam') : t('leaveTeam')}
               </span>
