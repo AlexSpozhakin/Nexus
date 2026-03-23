@@ -518,28 +518,26 @@ export default function Team() {
       <main className="max-w-7xl mx-auto px-4 py-4 sm:py-8 page-enter">
         <MilestoneCard teamId={id!} onUpdate={loadTeamData} />
         {/* Tabs */}
-        <div className="overflow-x-auto scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 mb-6">
-          <div className="flex gap-2 sm:gap-3 sm:flex-wrap pb-1">
-            {([
-              { key: 'tasks',     label: `${t('tasks')} (${filteredTasks.length})` },
-              { key: 'notes',     label: `${t('notes')} (${filteredNotes.length})` },
-              { key: 'members',   label: `${t('members')} (${members.length})` },
-              { key: 'documents', label: `📎 ${t('teamDocuments')}` },
-              { key: 'analytics', label: `📊 ${t('analytics')}` },
-            ] as const).map(tab => (
-              <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                className={`flex-shrink-0 px-3 sm:px-6 py-2 sm:py-2.5 rounded-xl font-semibold transition-all hover-lift text-xs sm:text-base whitespace-nowrap ${
-                  activeTab === tab.key
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
-                    : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 border border-gray-700/50'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-2 sm:gap-3 mb-6">
+          {([
+            { key: 'tasks',     label: `${t('tasks')} (${filteredTasks.length})` },
+            { key: 'notes',     label: `${t('notes')} (${filteredNotes.length})` },
+            { key: 'members',   label: `${t('members')} (${members.length})` },
+            { key: 'documents', label: `📎 ${t('teamDocuments')}` },
+            { key: 'analytics', label: `📊 ${t('analytics')}` },
+          ] as const).map(tab => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-xl font-semibold transition-all hover-lift text-xs sm:text-base whitespace-nowrap ${
+                activeTab === tab.key
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                  : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 border border-gray-700/50'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
 
         {/* Search */}
